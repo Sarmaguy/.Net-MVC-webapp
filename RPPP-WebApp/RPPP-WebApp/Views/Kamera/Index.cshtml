@@ -1,0 +1,79 @@
+@model RPPP_WebApp.ViewModels.ListaKameraViewModel
+
+@{
+  ViewBag.Title = "Kamera";
+}
+
+<h2>Popis kamera</h2>
+
+<a asp-action="Create">Unos nove kamere</a>
+
+<pager page-info="@Model.PagingInfo" page-action="Index" page-title="Unesite željenu stranicu"
+       class="float-end">
+</pager>
+
+<table class="table table-sm table-striped table-hover">
+  <thead>
+    <tr>
+      <th>
+        <a asp-route-sort="1" asp-route-page="@Model.PagingInfo.CurrentPage" asp-route-ascending="@(Model.PagingInfo.Sort == 1 ? !Model.PagingInfo.Ascending : true)">
+          Oznaka Kamere
+        </a>
+      </th>
+      <th>
+        <a asp-route-sort="2" asp-route-page="@Model.PagingInfo.CurrentPage" asp-route-ascending="@(Model.PagingInfo.Sort == 2 ? !Model.PagingInfo.Ascending : true)">
+          Koordinate
+        </a>
+      </th>
+      <th>
+        <a asp-route-sort="3" asp-route-page="@Model.PagingInfo.CurrentPage" asp-route-ascending="@(Model.PagingInfo.Sort == 3 ? !Model.PagingInfo.Ascending : true)">
+          Smjer
+        </a>
+      </th>
+      <th>
+        <a asp-route-sort="4" asp-route-page="@Model.PagingInfo.CurrentPage" asp-route-ascending="@(Model.PagingInfo.Sort == 4 ? !Model.PagingInfo.Ascending : true)">
+          Link za stream
+        </a>
+      </th>
+      <th>
+        <a asp-route-sort="5" asp-route-page="@Model.PagingInfo.CurrentPage" asp-route-ascending="@(Model.PagingInfo.Sort == 4 ? !Model.PagingInfo.Ascending : true)">
+          Vrsta
+        </a>
+      </th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    @foreach (var autocesta in Model.Kamere)
+    {
+      <tr>
+        <td class="text-center">@autocesta.KameraId</td>
+        <td class="text-left">@autocesta.KameraKoordinate</td>
+        <td class="text-center">@autocesta.KameraSmjer</td>
+        <td class="text-center">@autocesta.KameraUrl</td>
+        <td class="text-center">@autocesta.NazivVrste</td>
+        <td class="text-center">@autocesta.NazivAutoceste</td>
+        <td class="btn-group">
+          <a asp-action="Edit"
+             asp-route-id="@autocesta.KameraId"
+             asp-route-page="@Model.PagingInfo.CurrentPage"
+             asp-route-sort="@Model.PagingInfo.Sort"
+             asp-route-ascending="@Model.PagingInfo.Ascending"
+             class="btn btn-sm" title="Ažuriraj"><i class="fas fa-edit">Uredi</i></a>
+
+          <form asp-action="Delete" method="post"
+                asp-route-page="@Model.PagingInfo.CurrentPage"
+                asp-route-sort="@Model.PagingInfo.Sort"
+                asp-route-ascending="@Model.PagingInfo.Ascending">
+            <input type="hidden" name="id" value="@autocesta.KameraId" />
+            <button type="submit" class="btn btn-sm btn-danger delete" title="Obriši"><i class="fas fa-trash-alt">Obriši</i></button>
+          </form>
+        </td>
+      </tr>
+    }
+  </tbody>
+</table>
+
+@section scripts {
+  <script src="~/js/pager.js" asp-append-version="true"></script>
+}

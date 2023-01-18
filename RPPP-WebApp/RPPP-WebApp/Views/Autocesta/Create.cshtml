@@ -1,0 +1,37 @@
+﻿@model Autocestum
+
+@{
+  ViewBag.Title = "Nova autocesta";
+}
+
+<h2>Unos nove autoceste</h2>
+
+<form asp-action="Create" method="post">
+  <div asp-validation-summary="All"></div>
+
+  <div class="mb-3">
+    <label asp-for="AutocestaIme" class="form-label"></label>
+    <input maxlength="5" asp-for="AutocestaIme" class="form-control" />
+    <div class="form-text"><span asp-validation-for="AutocestaIme" class="text-danger"></span></div>
+  </div>
+  <div class="mb-3">
+    <label asp-for="AutocestaDuljina" class="form-label"></label>
+    <input maxlength="5" asp-for="AutocestaDuljina" class="form-control" />
+    <div class="form-text"><span asp-validation-for="AutocestaDuljina" class="text-danger"></span></div>
+  </div>
+  <div class="mb-3">
+    <label asp-for="Oibvlasnika" class="form-label"></label>
+    <select class="form-control" asp-for="Oibvlasnika" asp-items="ViewBag.Vlasnici">
+      <option disabled selected value="">Odaberite Vlasnika</option>
+    </select>
+    <div class="form-text"><span asp-validation-for="Oibvlasnika" class="text-danger"></span></div>
+  </div>
+  <div class="text-center">
+    <button class="btn btn-primary" type="submit">Dodaj</button>
+    <a asp-action="Index" class="btn btn-secondary">Odustani</a>
+  </div>
+</form>
+
+@section scripts {
+  <partial name="IncludeValidation" />
+}

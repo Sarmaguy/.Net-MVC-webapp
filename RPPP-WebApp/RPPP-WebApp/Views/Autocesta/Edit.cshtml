@@ -1,0 +1,42 @@
+﻿@model Autocestum
+
+@{
+  ViewBag.Title = "Ažuriranje autoceste";
+}
+
+<form asp-route-id="@Model.AutocestaId"
+      asp-route-page="@ViewBag.Page"
+      asp-route-sort="@ViewBag.Sort"
+      asp-route-ascending="@ViewBag.Ascending"
+      method="post">
+  <div asp-validation-summary="All"></div>
+  <div class="form-group">
+    <label asp-for="AutocestaIme"></label>
+    <div><span asp-validation-for="AutocestaIme" class="text-danger"></span></div>
+    <input asp-for="AutocestaIme" class="form-control" />
+  </div>
+  <div class="form-group">
+    <label asp-for="AutocestaDuljina"></label>
+    <div><span asp-validation-for="AutocestaDuljina" class="text-danger"></span></div>
+    <textarea asp-for="AutocestaDuljina" class="form-control"></textarea>
+  </div>
+  <div class="form-group">
+    <label asp-for="Oibvlasnika"></label>
+    <div><span asp-validation-for="Oibvlasnika" class="text-danger"></span></div>
+    <select class="form-control" asp-for="Oibvlasnika" asp-items="ViewBag.Vlasnici">
+      <option disabled selected value="">Odaberite Vlasnika</option>
+    </select>
+  </div>
+  <div class="text-center">
+    <button class="btn btn-primary" type="submit">Spremi</button>
+    <a asp-action="Index"
+       asp-route-page="@ViewBag.Page"
+       asp-route-sort="@ViewBag.Sort"
+       asp-route-ascending="@ViewBag.Ascending"
+       class="btn btn-secondary">Odustani</a>
+  </div>
+</form>
+
+@section scripts {
+  <partial name="IncludeValidation" />
+}

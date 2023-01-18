@@ -1,0 +1,49 @@
+﻿@model Kamera
+
+@{
+  ViewBag.Title = "Nova kamera";
+}
+
+<h2>Unos nove kamere</h2>
+
+<form asp-action="Create" method="post">
+  <div asp-validation-summary="All"></div>
+
+  <div class="mb-3">
+    <label asp-for="KameraKoordinate" class="form-label"></label>
+    <input asp-for="KameraKoordinate" class="form-control" />
+    <div class="form-text"><span asp-validation-for="KameraKoordinate" class="text-danger"></span></div>
+  </div>
+  <div class="mb-3">
+    <label asp-for="KameraSmjer" class="form-label"></label>
+    <input  asp-for="KameraSmjer" class="form-control" />
+    <div class="form-text"><span asp-validation-for="KameraSmjer" class="text-danger"></span></div>
+  </div>
+  <div class="mb-3">
+    <label asp-for="KameraUrl" class="form-label"></label>
+    <input  asp-for="KameraUrl" class="form-control" />
+    <div class="form-text"><span asp-validation-for="KameraUrl" class="text-danger"></span></div>
+  </div>
+  <div class="mb-3">
+    <label asp-for="VrstaKamereId" class="form-label"></label>
+    <select class="form-control" asp-for="VrstaKamereId" asp-items="ViewBag.Vrste">
+      <option disabled selected value="">Odaberite vrstu</option>
+    </select>
+    <div class="form-text"><span asp-validation-for="VrstaKamereId" class="text-danger"></span></div>
+  </div>
+  <div class="mb-3">
+    <label asp-for="AutocestaId" class="form-label"></label>
+    <select class="form-control" asp-for="AutocestaId" asp-items="ViewBag.Autoceste">
+      <option disabled selected value="">Odaberite autocestu</option>
+    </select>
+    <div class="form-text"><span asp-validation-for="AutocestaId" class="text-danger"></span></div>
+  </div>
+  <div class="text-center">
+    <button class="btn btn-primary" type="submit">Dodaj</button>
+    <a asp-action="Index" class="btn btn-secondary">Odustani</a>
+  </div>
+</form>
+
+@section scripts {
+  <partial name="IncludeValidation" />
+}

@@ -1,0 +1,93 @@
+@model Autocestum
+
+
+
+
+<form asp-action="Create" method="post">
+  <div asp-validation-summary="All"></div>
+
+  <div class="mb-3">
+    <label asp-for="AutocestaIme" class="form-label"></label>
+    <input maxlength="5" asp-for="AutocestaIme" class="form-control" />
+    <div class="form-text"><span asp-validation-for="AutocestaIme" class="text-danger"></span></div>
+  </div>
+  <div class="mb-3">
+    <label asp-for="AutocestaDuljina" class="form-label"></label>
+    <input maxlength="5" asp-for="AutocestaDuljina" class="form-control" />
+    <div class="form-text"><span asp-validation-for="AutocestaDuljina" class="text-danger"></span></div>
+  </div>
+  <div class="mb-3">
+    <label class="form-label">ImeVlasnika</label>
+    <select class="form-control" asp-for="Oibvlasnika" asp-items="ViewBag.Vlasnici">
+      <option disabled selected value="">Odaberite Vlasnika</option>
+    </select>
+    <div class="form-text"><span asp-validation-for="Oibvlasnika" class="text-danger"></span></div>
+  </div>
+  <div class="text-center">
+    <button class="btn btn-primary" type="submit">Dodaj</button>
+    <a asp-action="Index" class="btn btn-secondary">Odustani</a>
+  </div>
+</form>
+
+<div title="Potrebno je prvo unjeti autocestu kako bi se moglo dodati kameru na nju!">
+    <h5>Dodaj novu kameru:</h5>
+    <form asp-action="CreateKamera" method="post">
+    <div asp-validation-summary="All"></div>
+
+  <div class="mb-3">
+    <label  class="form-label">KameraKoordinate</label>
+    <input disabled  class="form-control" />
+    <div class="form-text"><span  class="text-danger"></span></div>
+  </div>
+  <div class="mb-3">
+    <label  class="form-label">KameraSmjer</label>
+    <input disabled  class="form-control" />
+    <div class="form-text"><span  class="text-danger"></span></div>
+  </div>
+  <div class="mb-3">
+    <label  class="form-label">KameraUrl</label>
+    <input disabled  class="form-control" />
+    <div class="form-text"><span class="text-danger"></span></div>
+  </div>
+  <div class="mb-3">
+    <label  class="form-label
+    ">VrstaKamere</label>
+    <select disabled class="form-control">
+      <option value="">Odaberite vrstu kamere</option>
+    </select>
+    <div class="form-text"><span  class="text-danger"></span></div>
+    <button disabled title="Potrebno je prvo unjeti autocestu kako bi se moglo dodati kameru na nju!"  class="btn btn-primary" type="submit">Dodaj</button>
+  </div>
+  </form>
+</div>
+
+
+<h5>Kamere postavljene na autocesti:</h5>
+<table class="table table-sm table-striped table-hover">
+  <thead>
+    <tr>
+      <th>
+        Oznaka Kamere
+      </th>
+      <th>
+          Koordinate
+      </th>
+      <th>
+          Smjer
+      </th>
+      <th>
+          Link za stream
+      </th>
+      <th>
+          Vrsta kamere
+      </th>
+      
+      <th></th>
+    </tr>
+  </thead>
+</table>
+
+@section scripts {
+  <script src="~/js/pager.js" asp-append-version="true"></script>
+  <partial name="IncludeValidation" />
+}

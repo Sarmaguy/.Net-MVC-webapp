@@ -1,0 +1,81 @@
+@model RPPP_WebApp.ViewModels.ListaMdViewModel
+
+@{
+  ViewBag.Title = "Kamera";
+}
+<p>Nekoliko prvih autocesta se ne moze izbrisat jer su FK u tablicama kolega, nisam imao vremena za neki lijepi eror handling :(</p>
+<p>Also, editanje Detaila je zapoceta ali nije dovrseno(Editanje mastera radi)</p>
+<h2>Master detail tablica:</h2>
+
+<a asp-action="Create">Unos novog master-detaila</a>
+
+<pager page-info="@Model.PagingInfo" page-action="Index" page-title="Unesite željenu stranicu"
+       class="float-end">
+</pager>
+
+<table class="table table-sm table-striped table-hover">
+  <thead>
+    <tr>
+      <th>
+        <a asp-route-sort="1" asp-route-page="@Model.PagingInfo.CurrentPage" asp-route-ascending="@(Model.PagingInfo.Sort == 1 ? !Model.PagingInfo.Ascending : true)">
+          Id autoceste
+        </a>
+      </th>
+      <th>
+        <a asp-route-sort="2" asp-route-page="@Model.PagingInfo.CurrentPage" asp-route-ascending="@(Model.PagingInfo.Sort == 2 ? !Model.PagingInfo.Ascending : true)">
+          Ime autoceste
+        </a>
+      </th>
+      <th>
+        <a asp-route-sort="3" asp-route-page="@Model.PagingInfo.CurrentPage" asp-route-ascending="@(Model.PagingInfo.Sort == 3 ? !Model.PagingInfo.Ascending : true)">
+          Duljina autoceste
+        </a>
+      </th>
+      <th>
+        <a asp-route-sort="4" asp-route-page="@Model.PagingInfo.CurrentPage" asp-route-ascending="@(Model.PagingInfo.Sort == 4 ? !Model.PagingInfo.Ascending : true)">
+          Vlasnik autoceste
+        </a>
+      </th>
+      <th>
+          Id kamera postavljenih na autocesti
+      </th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    @foreach (var autocesta in Model.Md)
+    {
+      <tr>
+        <td class="text-center">@autocesta.AutocestaId</td>
+        <td class="text-left">@autocesta.AutocestaIme</td>
+        <td class="text-center">@autocesta.AutocestaDuljina</td>
+        <td class="text-center">@autocesta.ImeVlasnika</td>
+        <td class="text-center">@autocesta.KamerasString</td>
+        <td class="btn-group">
+          <a asp-action="Detail"
+             asp-route-id="@autocesta.AutocestaId"
+             asp-route-ime="@autocesta.AutocestaIme"
+             asp-route-duljina="@autocesta.AutocestaDuljina"
+             asp-route-vlasnik="@autocesta.ImeVlasnika"
+             asp-route-page="@Model.PagingInfo.CurrentPage"
+             asp-route-sort="@Model.PagingInfo.Sort"
+             asp-route-ascending="@Model.PagingInfo.Ascending"
+             class="btn btn-primary" title="Detalji"><i class="fas fa-edit">Detalji</i></a>
+          <form asp-action="Delete" method="post"
+                asp-route-page="@Model.PagingInfo.CurrentPage"
+                asp-route-sort="@Model.PagingInfo.Sort"
+                asp-route-ascending="@Model.PagingInfo.Ascending"
+                asp-route-kamere="@autocesta.KamerasString">
+            <input type="hidden" name="AutocestaId" value="@autocesta.AutocestaId" />
+            <button type="submit" class="btn btn-sm btn-danger delete" title="Obriši"><i class="fas fa-trash-alt">Obriši</i></button>
+          </form>
+
+        </td>
+      </tr>
+    }
+  </tbody>
+</table>
+
+@section scripts {
+  <script src="~/js/pager.js" asp-append-version="true"></script>
+}

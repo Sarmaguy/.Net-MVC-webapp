@@ -1,0 +1,60 @@
+@model RPPP_WebApp.ViewModels.VrstaKamereViewModel
+
+@{
+  ViewBag.Title = "VrstaKamere";
+}
+
+<h2>Popis vrsti kamera</h2>
+
+<a asp-action="Create">Unos nove vrste</a>
+
+<pager page-info="@Model.PagingInfo" page-action="Index" page-title="Unesite željenu stranicu"
+       class="float-end">
+</pager>
+
+<table class="table table-sm table-striped table-hover">
+  <thead>
+    <tr>
+      <th>
+        <a asp-route-sort="1" asp-route-page="@Model.PagingInfo.CurrentPage" asp-route-ascending="@(Model.PagingInfo.Sort == 1 ? !Model.PagingInfo.Ascending : true)">
+          Id vrste
+        </a>
+      </th>
+      <th>
+        <a asp-route-sort="2" asp-route-page="@Model.PagingInfo.CurrentPage" asp-route-ascending="@(Model.PagingInfo.Sort == 2 ? !Model.PagingInfo.Ascending : true)">
+          Naziv vrste
+        </a>
+      </th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    @foreach (var autocesta in Model.VrstaKamere)
+    {
+      <tr>
+        <td class="text-center">@autocesta.VrstaKamereId</td>
+        <td class="text-left">@autocesta.VrstaKamereNaziv</td>
+        <td class="btn-group">
+          <a asp-action="Edit"
+             asp-route-id="@autocesta.VrstaKamereId"
+             asp-route-page="@Model.PagingInfo.CurrentPage"
+             asp-route-sort="@Model.PagingInfo.Sort"
+             asp-route-ascending="@Model.PagingInfo.Ascending"
+             class="btn btn-sm" title="Ažuriraj"><i class="fas fa-edit">Uredi</i></a>
+
+          <form asp-action="Delete" method="post"
+                asp-route-page="@Model.PagingInfo.CurrentPage"
+                asp-route-sort="@Model.PagingInfo.Sort"
+                asp-route-ascending="@Model.PagingInfo.Ascending">
+            <input type="hidden" name="id" value="@autocesta.VrstaKamereId" />
+            <button type="submit" class="btn btn-sm btn-danger delete" title="Obriši"><i class="fas fa-trash-alt">Obriši</i></button>
+          </form>
+        </td>
+      </tr>
+    }
+  </tbody>
+</table>
+
+@section scripts {
+  <script src="~/js/pager.js" asp-append-version="true"></script>
+}
